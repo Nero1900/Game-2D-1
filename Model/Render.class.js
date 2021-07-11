@@ -5,11 +5,10 @@ class Render extends MovableObject{
     x = 0;
     y = 0;
 
-    constructor(){
-        super().LoadImage('img/5.Fondo/1.png');
-
- 
-
+    constructor(ImagePath, x){
+        super().LoadImage(ImagePath);
+        this.x =x;
+        
     }
 
 

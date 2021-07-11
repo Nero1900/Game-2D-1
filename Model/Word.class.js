@@ -1,47 +1,73 @@
 class Word {
 
     character = new Character();
-    enemies = [
-        new Chicken(),
-        new Chicken(),
-        new Chicken()
-    ]
+    level = level1;
 
-    clouds = [new Cloud]
-    render = new Render();
     
     ctx;
     canvas;
-
-    constructor(canvas){
-        this.ctx = canvas.getContext('2d');
-        this.canvas = canvas
-        this.draw()
+    Camera_X=0;
+    
+    constructor(canvas, keyboard){
+        this.ctx = canvas.getContext('2d'); // JS Method 
+        this.canvas = canvas // ???? wir greifen nicht auf das canvas von constructor(canvas) sonder das canvas von canves; zu // Also wir sagen dass das Canvas in den Constructor = das Canvas oben canvas;
+        this.keyboard = keyboard;
+        this.draw() // function
+        this.setworld();
     }
 
-    draw(){
+    setworld(){
+        this.character.Word = this;
+    }
 
-       
-this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-this.ctx.drawImage(this.character.img, this.character.x, this.character.y, this.character.w, this.character.h)
-this.enemies.forEach(enemy => {
-    this.ctx.drawImage(enemy.img, enemy.x, enemy.y, enemy.w, enemy.h)
-});
-this.clouds.forEach(cloud => {
-    this.ctx.drawImage(cloud.img, cloud.x, cloud.y, cloud.w, cloud.h)
-});
-this.ctx.drawImage(this.render.img, this.render.x, this.render.y, this.render.w, this.render.h);
 
+    draw(){  
+this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // this.ctx == context for theese methods /// damit das Bild nicht mehrmals geladen wird
+
+this.ctx.translate(this.Camera_X, 0);
+
+this.AddObjectsToMap(this.level.renders); // with an ForEach Loop
+this.AddToMap(this.character); // Without a loop becouse we have only one Character
+this.AddObjectsToMap(this.level.enemies); // with an ForEach Loop
+this.AddObjectsToMap(this.level.clouds); // with an ForEach Loop
+
+this.ctx.translate(-this.Camera_X, 0);
+    
 // this.ctx.drawImage(this.enemies[0].img, 300, this.character.y, this.character.w, this.character.h) // another way without For Each
-
-
 
 let self = this; // To Generate a Draw LOOP
 
 requestAnimationFrame(function(){
-    self.draw();
+    self.draw();  // thid does not workinside the request animation frame so we first define this = self
 })
 
     }
 
-}
+    AddObjectsToMap(Objects){
+          Objects.forEach(Object => {
+            this.AddToMap(Object)  
+          });
+    }
+
+    AddToMap(mo) {
+
+        if (mo.Otherdirection) {
+            
+              this.ctx.save();
+              this.ctx.translate(mo.w, 0);
+              this.ctx.scale(-1, 1);
+              mo.x=mo.x*-1
+            }
+            this.ctx.drawImage(mo.img, mo.x, mo.y, mo.w, mo.h);
+            if (mo.Otherdirection) {
+                this.ctx.restore(); 
+                mo.x=mo.x*-1
+              }
+        }
+
+        
+    }
+
+
+
+

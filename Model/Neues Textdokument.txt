@@ -1,0 +1,3 @@
+WALKING_FORWARD_SOUND = new Audio('audio/Run_Forward.mp3');
+WALKING_BACKWARD_SOUND = new Audio('audio/Run_Backward.mp3');
+BACKGROUND_SOUND = new Audio('audio/BADTIME.mp3');
