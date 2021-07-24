@@ -2,8 +2,6 @@ class Word {
 
     character = new Character();
     level = level1;
-
-    
     ctx;
     canvas;
     Camera_X=0;
@@ -14,6 +12,8 @@ class Word {
         this.keyboard = keyboard;
         this.draw() // function
         this.setworld();
+        this.checkCollision();
+       
     }
 
     setworld(){
@@ -53,19 +53,43 @@ requestAnimationFrame(function(){
 
         if (mo.Otherdirection) {
             
-              this.ctx.save();
-              this.ctx.translate(mo.w, 0);
-              this.ctx.scale(-1, 1);
-              mo.x=mo.x*-1
+            this.FlipImage(mo);
+              
             }
-            this.ctx.drawImage(mo.img, mo.x, mo.y, mo.w, mo.h);
+            
+            mo.draw(this.ctx);
+            mo.ShowFrame(this.ctx);
+           
             if (mo.Otherdirection) {
-                this.ctx.restore(); 
-                mo.x=mo.x*-1
+                this.FlipImageBack(mo);
+                
               }
         }
 
-        
+        FlipImageBack(mo){
+            this.ctx.restore(); 
+            mo.x=mo.x*-1}
+
+            FlipImage(mo){
+                this.ctx.save();
+                this.ctx.translate(mo.w, 0);
+                this.ctx.scale(-1, 1);
+               mo.x=mo.x*-1
+            }
+
+            checkCollision(){
+                setInterval(() => {
+                  
+                  this.level.enemies.forEach(enemy => {
+                   if(this.character.IsColliding(enemy)){ 
+                       this.character.Hit();
+                }
+                  });  
+                }, 200);}
+            
+              
+                    
+                    
     }
 
 
