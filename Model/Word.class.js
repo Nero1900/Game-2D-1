@@ -5,6 +5,7 @@ class Word {
     ctx;
     canvas;
     Camera_X=0;
+    statusBar = new StatusBar();
     
     constructor(canvas, keyboard){
         this.ctx = canvas.getContext('2d'); // JS Method 
@@ -27,11 +28,16 @@ this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // this.ctx == 
 this.ctx.translate(this.Camera_X, 0);
 
 this.AddObjectsToMap(this.level.renders); // with an ForEach Loop
+
+this.ctx.translate(-this.Camera_X, 0); // wieder nach vorne schieben der Camera
+this.AddToMap(this.statusBar);
+this.ctx.translate(this.Camera_X, 0); // zurück schieben der Camera
+
 this.AddToMap(this.character); // Without a loop becouse we have only one Character
 this.AddObjectsToMap(this.level.enemies); // with an ForEach Loop
 this.AddObjectsToMap(this.level.clouds); // with an ForEach Loop
 
-this.ctx.translate(-this.Camera_X, 0);
+this.ctx.translate(-this.Camera_X, 0); 
     
 // this.ctx.drawImage(this.enemies[0].img, 300, this.character.y, this.character.w, this.character.h) // another way without For Each
 
@@ -83,6 +89,9 @@ requestAnimationFrame(function(){
                   this.level.enemies.forEach(enemy => {
                    if(this.character.IsColliding(enemy)){ 
                        this.character.Hit();
+                       //this.statusBar.setPercentage(this.character.energy);
+                       this.statusBar.setPercentage(this.character.energy);
+
                 }
                   });  
                 }, 200);}

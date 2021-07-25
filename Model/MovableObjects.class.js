@@ -1,32 +1,13 @@
 
 
-class MovableObject {
-x = 20;
-y = 315;
-img;
-h = 150;
-w = 75;
+class MovableObject extends DrawableObjects {
+
 speed = 5;
-ImageCache = {};
-CurrentImgNumber = 0;
 Otherdirection = false;
 lasthit = 0;
 
 
-LoadImage(path){
-    this.img = new Image() // Image() == document.GetElementById('Image') // im HTML <img id = "Image" src="path"> // It is already defined by VS Code
-    this.img.src = path; // // Ich habe img als eine Image wie <img src="path"> definiert // dann habe ich den src durch this.img.src = path definiert
-// Also hat jetzt img; einen wert nämlich <img src="path">
 
-}
-
-LoadImages(ArrayOfImagePaths){
-ArrayOfImagePaths.forEach(OneImagePath => {
- let img = new Image(); //Why not this.img!!!!!!!!!!!!!?????
- img.src = OneImagePath;
- this.ImageCache[OneImagePath] = img; //Why not Push!!!!!!!!!!!!!??????????
-});
-}
 
 
 LoadImages_JUMP(ArrayOfImagePaths){
@@ -65,18 +46,8 @@ MoveLeft_Character(){
         //this.WALKING_FORWARD_SOUND.play();
 }
 
-draw(ctx){
-    ctx.drawImage(this.img, this.x, this.y, this.w, this.h);
-}
 
-ShowFrame(ctx){
-    if(this instanceof Character || this instanceof Chicken){
-    ctx.beginPath();
-    ctx.lineWidth = "6";
-    ctx.strokeStyle = "red";
-    ctx.rect( this.x, this.y, this.w, this.h);
-    ctx.stroke();}
-}
+
 
 IsColliding(mo){
     return this.x + this.w > mo.x &&
