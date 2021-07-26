@@ -6,14 +6,17 @@ class Word {
     canvas;
     Camera_X=0;
     statusBar = new StatusBar();
+    throwableObjects = [];
+    
     
     constructor(canvas, keyboard){
+        
         this.ctx = canvas.getContext('2d'); // JS Method 
         this.canvas = canvas // ???? wir greifen nicht auf das canvas von constructor(canvas) sonder das canvas von canves; zu // Also wir sagen dass das Canvas in den Constructor = das Canvas oben canvas;
         this.keyboard = keyboard;
         this.draw() // function
         this.setworld();
-        this.checkCollision();
+        this. CharacterCharacteristics();
        
     }
 
@@ -28,6 +31,7 @@ this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height); // this.ctx == 
 this.ctx.translate(this.Camera_X, 0);
 
 this.AddObjectsToMap(this.level.renders); // with an ForEach Loop
+this.AddObjectsToMap(this.throwableObjects);
 
 this.ctx.translate(-this.Camera_X, 0); // wieder nach vorne schieben der Camera
 this.AddToMap(this.statusBar);
@@ -83,20 +87,33 @@ requestAnimationFrame(function(){
                mo.x=mo.x*-1
             }
 
-            checkCollision(){
-                setInterval(() => {
-                  
-                  this.level.enemies.forEach(enemy => {
-                   if(this.character.IsColliding(enemy)){ 
-                       this.character.Hit();
-                       //this.statusBar.setPercentage(this.character.energy);
-                       this.statusBar.setPercentage(this.character.energy);
-
-                }
-                  });  
-                }, 200);}
+            CharacterCharacteristics(){setInterval(() => {
+                this.checkCollision();
+                this.checkThrowBottle();
+              }, 200);}
+                
+               
             
-              
+                checkCollision(){this.level.enemies.forEach(enemy => {
+                    if(this.character.IsColliding(enemy)){ 
+                        this.character.Hit();
+                        //this.statusBar.setPercentage(this.character.energy);
+                        this.statusBar.setPercentage(this.character.energy);}});} 
+
+                        checkThrowBottle(){
+                            if(this.keyboard.D){
+                                let Bottle = new ThrowableObjects(this.character.x, this.character.y);
+                                this.throwableObjects.push(Bottle)
+                            }
+                        }
+   
+                 
+                     
+
+                 
+
+
+                  
                     
                     
     }

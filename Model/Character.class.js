@@ -40,8 +40,7 @@ class Character extends MovableObject{
 Word;
 speed = 10;
 energy = 100;
-speedY = 0;
-Acceleration = 1;
+
 //WALKING_FORWARD_SOUND = new Audio('audio/Run_Forward.mp3');
 //WALKING_BACKWARD_SOUND = new Audio('audio/Run_Backward.mp3');
 //BACKGROUND_SOUND = new Audio('audio/BADTIME.mp3');
@@ -58,18 +57,7 @@ constructor(){
 
 
 
-setGravity(){
-    
-    setInterval(() => {
-        if(this.IsAboveGround() || this.speedY > 0){
-        this.y -= this.speedY;
-        this.speedY -= this.Acceleration;}
-    }, 1000/25);
-}
 
-IsAboveGround(){
-    return this.y <315
-}
 
 animate(){
 

@@ -1,10 +1,25 @@
 
 
 class MovableObject extends DrawableObjects {
-
+speedY = 0;
+Acceleration = 1;
 speed = 5;
 Otherdirection = false;
 lasthit = 0;
+GroundLevel = 315;
+
+setGravity(){
+    
+    setInterval(() => {
+        if(this.IsAboveGround() || this.speedY > 0){
+        this.y -= this.speedY;
+        this.speedY -= this.Acceleration;}
+    }, 1000/25);
+}
+
+IsAboveGround(){
+    return this.y <this.GroundLevel;
+}
 
 
 
@@ -74,6 +89,8 @@ IsColliding(mo){
     IsDead(){
         return this.energy == 0;
        } // this function returns TRUE or FALSE (BOOLEAN)
+
+      
 
 
 }

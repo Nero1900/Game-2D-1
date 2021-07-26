@@ -31,6 +31,9 @@ window.addEventListener("keydown", (e) => {
     if (e.code == "ArrowDown") {
         keyboard.DOWN = true;
     } // for using keycode = 40
+    if (e.keyCode == "68") {
+        keyboard.D = true;
+    }  // for using keycode = 68
     console.log(e);
 });
 
@@ -50,5 +53,8 @@ window.addEventListener("keyup", (e) => {
     if (e.code == "ArrowDown") {
         keyboard.DOWN = false;
     } // for using keycode = 40
+    if (e.keyCode == "68") {
+        keyboard.D = false;
+    }  // for using keycode = 68
     console.log(e);
 });
